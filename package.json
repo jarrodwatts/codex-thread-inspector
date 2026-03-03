@@ -1,23 +1,13 @@
 {
   "name": "codex-thread-inspector",
   "version": "0.1.0",
+  "private": true,
   "description": "Visualize Codex agent session internals — timeline, token usage, tool calls, and context layers",
-  "type": "module",
-  "bin": {
-    "codex-thread-inspector": "./bin/cli.mjs"
-  },
-  "files": [
-    ".next/standalone",
-    ".next/static",
-    "bin"
-  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public 2>/dev/null || true",
     "start": "next start",
-    "lint": "eslint",
-    "prepublishOnly": "pnpm build"
+    "lint": "eslint"
   },
   "keywords": [
     "codex",
@@ -25,8 +15,7 @@
     "session",
     "inspector",
     "visualization",
-    "jsonl",
-    "cli"
+    "jsonl"
   ],
   "author": "Jarrod Watts",
   "license": "MIT",
@@ -43,7 +32,6 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.576.0",
     "next": "16.1.6",
-    "open": "^10.2.0",
     "radix-ui": "^1.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",

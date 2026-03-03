@@ -13,5 +13,3 @@ All notable changes to this project will be documented in this file.
 - Auto-discovery of Codex sessions from `~/.codex/sessions/`
 - File upload mode for inspecting any rollout JSONL
 - Search/filter across turns and tool calls
-- `npx codex-thread-inspector` CLI for instant launch
-- `--port` and `--sessions-dir` CLI options
