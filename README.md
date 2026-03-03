@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Codex Thread Inspector
 
-## Getting Started
+Visualize [Codex](https://github.com/openai/codex) agent session internals — timeline, token usage, tool calls, and context layers.
 
-First, run the development server:
+Built for a deeper look at what happens inside Codex agent sessions. Parses the JSONL rollout files that Codex writes to `~/.codex/sessions/` and renders them as an interactive web UI.
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx codex-thread-inspector
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens a local web server at `http://localhost:3000` with your Codex sessions auto-discovered.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+No Codex installed? You can also drag-and-drop any `.jsonl` rollout file directly into the upload zone.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+- **Session timeline** — Every turn, tool call, and context event in chronological order
+- **Token panel** — Cache rates, per-turn token breakdown, cumulative usage chart
+- **Context layers** — See system prompts, developer instructions, and turn context as the model sees them
+- **Search** — Filter turns and tool calls by keyword
+- **Upload mode** — Inspect any rollout file without Codex installed
 
-To learn more about Next.js, take a look at the following resources:
+## Options
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npx codex-thread-inspector [options]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  -p, --port <number>       Port to listen on (default: 3000)
+  --sessions-dir <path>     Custom sessions directory (default: ~/.codex/sessions)
+  -h, --help                Show help
+```
 
-## Deploy on Vercel
+## Requirements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Node.js 18+**
+- **Codex CLI** (for auto-discovery of sessions) — or use upload mode without it
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How It Works
+
+Codex writes a JSONL rollout file for each session to `~/.codex/sessions/YYYY/MM/DD/rollout-{id}.jsonl`. Thread Inspector parses these files and builds a view model with:
+
+- Session metadata (model, branch, working directory)
+- Turn-by-turn timeline with tool calls and responses
+- Token statistics with input/output/cache breakdowns
+- Context events (compactions, developer instructions, system prompts)
+
+## Development
+
+```bash
+git clone https://github.com/jarrodwatts/codex-thread-inspector.git
+cd codex-thread-inspector
+pnpm install
+pnpm dev
+```
+
+## License
+
+[MIT](LICENSE)
